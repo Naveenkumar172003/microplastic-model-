@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Microplastic Detector</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+  <main class="container">
+    <h1>Microplastic Detector</h1>
+    <p>Upload an image and detect whether it contains microplastic particles.</p>
+
+    {% with messages = get_flashed_messages() %}
+      {% if messages %}
+        <div class="alert">
+          {% for message in messages %}
+            <p>{{ message }}</p>
+          {% endfor %}
+        </div>
+      {% endif %}
+    {% endwith %}
+
+    <form action="{{ url_for('predict') }}" method="post" enctype="multipart/form-data" class="upload-form">
+      <label for="image">Choose image</label>
+      <input type="file" id="image" name="image" accept="image/*" required>
+      <button type="submit">Analyze Image</button>
+    </form>
+  </main>
+</body>
+</html>

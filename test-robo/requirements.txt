@@ -1,0 +1,2 @@
+flask>=3.0.0
+inference-sdk>=0.36.0

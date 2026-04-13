@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Detection Result</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+  <main class="container">
+    <h1>Detection Result</h1>
+
+    <img src="{{ uploaded_image_url }}" alt="Uploaded sample" style="max-width:100%; border-radius: 10px; margin-bottom: 16px;">
+
+    {% if summary.has_microplastic %}
+      <p class="success">Microplastic detected.</p>
+    {% else %}
+      <p class="danger">No microplastic detected.</p>
+    {% endif %}
+
+    <p><strong>Detected microplastic objects:</strong> {{ summary.microplastic_count }}</p>
+
+    {% if summary.microplastic_predictions %}
+      <h2>Detected Microplastic Entries</h2>
+      <pre>{{ summary.microplastic_predictions | tojson(indent=2) }}</pre>
+    {% endif %}
+
+    <h2>Raw Workflow Output</h2>
+    <pre>{{ raw_result }}</pre>
+
+    <a class="back-link" href="{{ url_for('index') }}">Analyze another image</a>
+  </main>
+</body>
+</html>
